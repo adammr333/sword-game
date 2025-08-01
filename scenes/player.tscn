@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=3 uid="uid://d4bjsk03n2yj3"]
+
+[ext_resource type="Script" uid="uid://trubl6u22cp8" path="res://scripts/player.gd" id="1_dqkch"]
+[ext_resource type="Script" uid="uid://cgnswx503eygv" path="res://scripts/controllers/movement_controller.gd" id="2_qlg0r"]
+[ext_resource type="Script" uid="uid://cdaq8eo6rig3f" path="res://scripts/controllers/camera_controller.gd" id="3_tuyoq"]
+[ext_resource type="Script" uid="uid://bn44sop7eud4i" path="res://scripts/controllers/sword_controller.gd" id="4_fjrip"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_smehm"]
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_dqkch")
+
+[node name="Controllers" type="Node" parent="."]
+
+[node name="MovementController" type="Node" parent="Controllers"]
+script = ExtResource("2_qlg0r")
+
+[node name="CameraController" type="Node" parent="Controllers"]
+script = ExtResource("3_tuyoq")
+
+[node name="SwordController" type="Node" parent="Controllers"]
+script = ExtResource("4_fjrip")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_smehm")
