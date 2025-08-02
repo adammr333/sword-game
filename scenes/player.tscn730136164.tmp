@@ -5,12 +5,11 @@
 [ext_resource type="Script" uid="uid://cdaq8eo6rig3f" path="res://scripts/controllers/camera_controller.gd" id="3_tuyoq"]
 [ext_resource type="Script" uid="uid://bn44sop7eud4i" path="res://scripts/controllers/sword_controller.gd" id="4_fjrip"]
 [ext_resource type="PackedScene" uid="uid://drxt2tobfo1nl" path="res://scenes/game_ui.tscn" id="5_qlg0r"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_dqkch"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_qlg0r"]
+[ext_resource type="Script" uid="uid://ccih8sunaxgpi" path="res://scripts/character_controller.gd" id="6_tuyoq"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_smehm"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_dqkch"]
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_dqkch")
@@ -26,30 +25,23 @@ script = ExtResource("3_tuyoq")
 [node name="SwordController" type="Node" parent="Controllers"]
 script = ExtResource("4_fjrip")
 
-[node name="SwordReadyTimer" type="Timer" parent="Controllers/SwordController"]
-wait_time = 0.5
-one_shot = true
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_smehm")
 
 [node name="PlayerBody" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_dqkch")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="PlayerBody"]
-transform = Transform3D(0.356252, 0, 0, 0, 0.356252, 0, 0, 0, 0.356252, 0, 0.317497, -0.546472)
-mesh = SubResource("BoxMesh_qlg0r")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("CapsuleShape3D_smehm")
-
 [node name="SpringArmPivot" type="Node3D" parent="."]
 
 [node name="SpringArm3D" type="SpringArm3D" parent="SpringArmPivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.82478, 0)
-spring_length = 3.0
+spring_length = 2.0
 
 [node name="Camera3D" type="Camera3D" parent="SpringArmPivot/SpringArm3D"]
 
 [node name="GameUI" parent="SpringArmPivot/SpringArm3D/Camera3D" instance=ExtResource("5_qlg0r")]
 
-[connection signal="timeout" from="Controllers/SwordController/SwordReadyTimer" to="Controllers/SwordController" method="_on_sword_ready_timer_timeout"]
+[node name="CharacterController" type="Node3D" parent="."]
+script = ExtResource("6_tuyoq")
